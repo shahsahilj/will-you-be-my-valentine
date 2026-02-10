@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Heart ❤️</title>
+
+<!-- Handwritten Font -->
+<link 
+href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" 
+rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Pacifico', cursive;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffb6c1, #fff0f5);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== Floating Hearts ===== */
+.heart {
+    position: absolute;
+    color: rgba(255, 0, 80, 0.5);
+    animation: floatUp linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(110vh) scale(1); }
+    to { transform: translateY(-10vh) scale(1.4); }
+}
+
+/* ===== Sections ===== */
+.section {
+    position: absolute;
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    max-width: 620px;
+    width: 90%;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
+
+.section.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+h1, h2 {
+    color: #b3003b;
+}
+
+p {
+    font-size: 20px;
+    color: #7a0033;
+}
+
+img {
+    max-width: 220px;
+    margin: 15px auto;
+    display: block;
+    border-radius: 15px;
+}
+
+/* ===== Game ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.item {
+    font-size: 40px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.item:hover {
+    transform: scale(1.25);
+}
+
+/* ===== Envelope ===== */
+.envelope {
+    width: 200px;
+    height: 130px;
+    margin: 25px auto;
+    position: relative;
+    cursor: pointer;
+}
+
+.envelope .back {
+    width: 100%;
+    height: 100%;
+    background: #ff5c8a;
+    border-radius: 10px;
+}
+
+.envelope .flap {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #ff3366;
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    transform-origin: top;
+    transition: transform 0.8s ease;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+/* ===== Name inside envelope ===== */
+.envelope-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    font-size: 28px;
+    color: white;
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.envelope.show-name .envelope-name {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ===== Buttons ===== */
+button {
+    padding: 14px 34px;
+    font-size: 20px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    margin: 12px;
+    transition: transform 0.3s ease;
+}
+
+#yesBtn {
+    background: #ff3366;
+    color: white;
+}
+
+#noBtn {
+    background: #eee;
+    position: relative;
+}
+</style>
+</head>
+
+<body>
+
+<!-- GAME -->
+<div class="section active" id="game">
+    <h2>My heart is locked 💗</h2>
+    <p>
+        Somewhere here are the keys to it…  
+        Can you help me find them? 🔑
+    </p>
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHBhOTZuaGplNmhxZ3IzeDZyYThqOHZyNXYyaGlqNmZraTY1cW92NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUOwFZmWUC2QDHKu4M/giphy.webp">
+    <div class="grid" id="grid"></div>
+</div>
+
+<!-- ENVELOPE -->
+<div class="section" id="envelopeSection">
+    <h2>Yayy!! You found the keys to my heart 💖</h2>
+    <p>
+        Now let’s unlock it  
+        and see what’s been inside all along…
+    </p>
+    <div class="envelope" id="envelope">
+        <div class="back"></div>
+        <div class="flap"></div>
+
+        <!-- ✨ CHANGE NAME HERE ✨ -->
+        <div class="envelope-name" id="herName">Foru ❤️</div>
+    </div>
+</div>
+
+<!-- QUESTION -->
+<div class="section" id="question" style="background-color: lightpink;">
+    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnhjYThqdjZhbjRmY2NtNDNid3I1dTB0YmZsczIzamh1YmN0b2xpcCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HKvbasW8mKOcG2TCmc/giphy.webp">
+    <h1>Will you honor me<br>by being my Valentine? ❤️</h1>
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 😛</button>
+</div>
+
+<!-- FINAL -->
+<div class="section" id="final" style="background-color: lightpink;">
+    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmo0NHViMXRubm11aGNzMHF4MDJzNjRkbDNidzZvZ2dwN2d3emgwcSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/SYo1DFS8NLhhqzzjMU/200.webp">
+    <h2>Happy Valentine’s Day ❤️</h2>
+    <p>
+        Thank you for unlocking my heart  
+        and choosing to stay there.  
+        <br><br>
+        You make love feel warm, gentle,  
+        and wonderfully real. 💕
+    </p>
+</div>
+
+<script>
+/* ===== Floating Hearts ===== */
+for (let i = 0; i < 50; i++) {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = i%2==0 ? "S️F" : "❤️";
+    let side = Math.random() < 0.5;
+    h.style.left = side
+        ? Math.random() * 25 + "vw"
+        : 75 + Math.random() * 25 + "vw";
+    h.style.fontSize = 10 + Math.random() * 22 + "px";
+    h.style.animationDuration = 6 + Math.random() * 6 + "s";
+    document.body.appendChild(h);
+}
+
+/* ===== Game Logic ===== */
+const icons = ["🧸","🍬","🎁","💌","🍫","🌹","🧁","🎀","📦","💝"];
+let keySpots = [];
+let found = 0;
+
+function startGame() {
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+    found = 0;
+    keySpots = [];
+
+    while (keySpots.length < 3) {
+        let r = Math.floor(Math.random() * 10);
+        if (!keySpots.includes(r)) keySpots.push(r);
+    }
+
+    icons.forEach((icon, i) => {
+        let d = document.createElement("div");
+        d.className = "item";
+        d.innerHTML = icon;
+        d.onclick = () => {
+            if (keySpots.includes(i)) {
+                d.innerHTML = "🔑";
+                found++;
+                d.style.pointerEvents = "none";
+                if (found === 1) switchSection("game", "envelopeSection");
+            } else {
+                d.style.opacity = "0.3";
+                d.style.pointerEvents = "none";
+            }
+        };
+        grid.appendChild(d);
+    });
+}
+startGame();
+
+/* ===== Transitions ===== */
+function switchSection(from, to) {
+    document.getElementById(from).classList.remove("active");
+    setTimeout(() => {
+        document.getElementById(to).classList.add("active");
+    }, 500);
+}
+
+/* ===== Envelope + Name Animation ===== */
+document.getElementById("envelope").onclick = () => {
+    const env = document.getElementById("envelope");
+    env.classList.add("open");
+
+    setTimeout(() => {
+        env.classList.add("show-name");
+    }, 600);
+
+    setTimeout(() => {
+        switchSection("envelopeSection", "question");
+    }, 2000);
+};
+
+/* ===== No Button + Yes Growth ===== */
+let yesScale = 1;
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+noBtn.onmouseover = e => {
+    e.target.style.left = Math.random() * 200 - 100 + "px";
+    e.target.style.top = Math.random() * 200 - 100 + "px";
+    yesScale += 0.08;
+    yesBtn.style.transform = `scale(${yesScale})`;
+};
+
+/* ===== Yes ===== */
+yesBtn.onclick = () => {
+    switchSection("question", "final");
+};
+</script>
+
+</body>
+</html>
+
