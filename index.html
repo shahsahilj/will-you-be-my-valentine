@@ -94,53 +94,73 @@ img {
     transform: scale(1.25);
 }
 
-/* ===== Envelope ===== */
-.envelope {
-    width: 200px;
-    height: 130px;
-    margin: 25px auto;
+/* ===== Big Heart ===== */
+.heart-container {
     position: relative;
+    width: 220px;
+    height: 200px;
+    margin: 30px auto;
     cursor: pointer;
 }
 
-.envelope .back {
-    width: 100%;
-    height: 100%;
-    background: #ff5c8a;
-    border-radius: 10px;
-}
-
-.envelope .flap {
+.big-heart {
     position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    width: 140px;
+    height: 140px;
     background: #ff3366;
-    clip-path: polygon(0 0, 100% 0, 50% 60%);
-    transform-origin: top;
-    transition: transform 0.8s ease;
+    top: 30px;
+    left: 40px;
+    transform: rotate(-45deg);
+    animation: pulse 1.8s infinite;
 }
 
-.envelope.open .flap {
-    transform: rotateX(180deg);
-}
-
-/* ===== Name inside envelope ===== */
-.envelope-name {
+.big-heart::before,
+.big-heart::after {
+    content: "";
     position: absolute;
-    top: 50%;
+    width: 140px;
+    height: 140px;
+    background: #ff3366;
+    border-radius: 50%;
+}
+
+.big-heart::before {
+    top: -70px;
+    left: 0;
+}
+
+.big-heart::after {
+    left: 70px;
+    top: 0;
+}
+
+@keyframes pulse {
+    0% { transform: rotate(-45deg) scale(1); }
+    50% { transform: rotate(-45deg) scale(1.1); }
+    100% { transform: rotate(-45deg) scale(1); }
+}
+
+/* ===== Name Reveal ===== */
+.heart-name {
+    position: absolute;
+    top: 50px;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.6);
-    font-size: 28px;
+    transform: translate(-50%, -50%) rotate(45deg) scale(0.6);
     color: white;
+    font-size: 30px;
     opacity: 0;
     transition: all 0.8s ease;
+    pointer-events: none;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.envelope.show-name .envelope-name {
+.heart-container.open .heart-name {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateX(-50%) scale(1);
 }
+
+
 
 /* ===== Buttons ===== */
 button {
@@ -185,12 +205,11 @@ button {
         Now let’s unlock it  
         and see what’s been inside all along…
     </p>
-    <div class="envelope" id="envelope">
-        <div class="back"></div>
-        <div class="flap"></div>
+    <div class="heart-container" id="heart">
+        <div class="big-heart"></div>
 
         <!-- ✨ CHANGE NAME HERE ✨ -->
-        <div class="envelope-name" id="herName">Foru ❤️</div>
+        <div class="heart-name" id="herName">Foru ❤️</div>
     </div>
 </div>
 
@@ -255,7 +274,7 @@ function startGame() {
                 d.innerHTML = "🔑";
                 found++;
                 d.style.pointerEvents = "none";
-                if (found === 3) switchSection("game", "envelopeSection");
+                if (found === 1) switchSection("game", "envelopeSection");
             } else {
                 d.style.opacity = "0.3";
                 d.style.pointerEvents = "none";
@@ -275,18 +294,15 @@ function switchSection(from, to) {
 }
 
 /* ===== Envelope + Name Animation ===== */
-document.getElementById("envelope").onclick = () => {
-    const env = document.getElementById("envelope");
-    env.classList.add("open");
-
-    setTimeout(() => {
-        env.classList.add("show-name");
-    }, 600);
+document.getElementById("heart").onclick = () => {
+    const heart = document.getElementById("heart");
+    heart.classList.add("open");
 
     setTimeout(() => {
         switchSection("envelopeSection", "question");
     }, 2000);
 };
+
 
 /* ===== No Button + Yes Growth ===== */
 let yesScale = 1;
