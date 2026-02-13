@@ -198,8 +198,8 @@ button {
     color: white;
 }
 
-#noBtn { 
-    background: #eee; 
+#noBtn {
+    background: #eee;
     position: relative;
 }
 
@@ -221,7 +221,7 @@ button {
 <div class="section active" id="game">
     <h2>My heart is locked 💗</h2>
     <p>
-        Somewhere here are the keys to it… 
+        Somewhere here are the keys to it…
         Can you help me find them? 🔑
     </p>
     <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHBhOTZuaGplNmhxZ3IzeDZyYThqOHZyNXYyaGlqNmZraTY1cW92NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUOwFZmWUC2QDHKu4M/giphy.webp">
@@ -232,7 +232,7 @@ button {
 <div class="section" id="envelopeSection">
     <h2>Yayy!! You found the keys to my heart 💖</h2>
     <p>
-        Now let’s unlock it 
+        Now let’s unlock it
         and see what’s been inside all along…
     </p>
 
@@ -255,10 +255,10 @@ button {
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmo0NHViMXRubm11aGNzMHF4MDJzNjRkbDNidzZvZ2dwN2d3emgwcSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/SYo1DFS8NLhhqzzjMU/200.webp">
     <h2>Happy Valentine’s Day ❤️</h2>
     <p>
-        Thank you for unlocking my heart 
+        Thank you for unlocking my heart
         and choosing to stay there.
         <br><br>
-        You make love feel warm, gentle, 
+        You make love feel warm, gentle,
         and wonderfully real. 💕
     </p>
     <h2>I Love You ❤️</h2>
@@ -270,10 +270,7 @@ button {
 for (let i = 0; i < 50; i++) {
     let h = document.createElement("div");
     h.className = "heart";
-    if (i%3 == 0){ h.innerHTML = "❤️";}
-    else if (i%3 == 0){ h.innerHTML = "💖";}
-    else { h.innerHTML = "SF";}
-    
+    h.innerHTML = i%2==0 ? "S️F" : "❤️";
     let side = Math.random() < 0.5;
     h.style.left = side
         ? Math.random() * 25 + "vw"
