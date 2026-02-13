@@ -209,7 +209,7 @@ button {
 
     <div class="heart-container" id="heart">
         <div class="big-heart"></div>
-        <div class="heart-name" id="herName">Name ❤️</div>
+        <div class="heart-name" id="herName">Foru ❤️</div>
     </div>
 </div>
 
@@ -239,7 +239,10 @@ button {
 for (let i = 0; i < 50; i++) {
     let h = document.createElement("div");
     h.className = "heart";
-    h.innerHTML = i%2==0 ? "❤️" : "💖";
+    if (i%3 == 0){ h.innerHTML = "❤️";}
+    else if (i%3 == 0){ h.innerHTML = "💖";}
+    else { h.innerHTML = "SF";}
+    
     let side = Math.random() < 0.5;
     h.style.left = side ? Math.random()*25+"vw" : 75+Math.random()*25+"vw";
     h.style.fontSize = 10 + Math.random()*22 + "px";
@@ -272,7 +275,7 @@ function startGame() {
                 d.innerHTML="🔑";
                 found++;
                 d.style.pointerEvents="none";
-                if(found===1) switchSection("game","envelopeSection");
+                if(found === 3) switchSection("game","envelopeSection");
             } else {
                 d.style.opacity="0.3";
                 d.style.pointerEvents="none";
