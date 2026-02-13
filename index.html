@@ -2,24 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>My Heart ❤️</title>
 
+<!-- App Feel -->
+<meta name="theme-color" content="#ff3366">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Heart ❤️">
+
+<!-- Social Preview (CHANGE IMAGE URL) -->
+<meta property="og:title" content="A little surprise for you ❤️">
+<meta property="og:description" content="Tap to unlock my heart 💖">
+<meta property="og:image" content="preview.jpg">
+<meta property="og:type" content="website">
+
+<!-- App Icon (UPLOAD icon.png) -->
+<link rel="icon" type="image/png" sizes="32x32" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+
 <!-- Handwritten Font -->
-<link 
-href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" 
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
+
 * {
     box-sizing: border-box;
     font-family: 'Pacifico', cursive;
 }
 
+html, body {
+    -webkit-tap-highlight-color: transparent;
+}
+
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(135deg, #ffb6c1, #fff0f5);
-    overflow: hidden;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +71,7 @@ body {
     width: 90%;
     opacity: 0;
     transform: scale(0.9);
-    transition: all 0.6s ease;
+    transition: all 0.6s cubic-bezier(.22,1,.36,1);
     pointer-events: none;
 }
 
@@ -60,14 +81,8 @@ body {
     pointer-events: auto;
 }
 
-h1, h2 {
-    color: #b3003b;
-}
-
-p {
-    font-size: 20px;
-    color: #7a0033;
-}
+h1, h2 { color: #b3003b; }
+p { font-size: 20px; color: #7a0033; }
 
 img {
     max-width: 220px;
@@ -90,9 +105,7 @@ img {
     transition: transform 0.2s;
 }
 
-.item:hover {
-    transform: scale(1.25);
-}
+.item:hover { transform: scale(1.25); }
 
 /* ===== Big Heart ===== */
 .heart-container {
@@ -124,15 +137,8 @@ img {
     border-radius: 50%;
 }
 
-.big-heart::before {
-    top: -70px;
-    left: 0;
-}
-
-.big-heart::after {
-    left: 70px;
-    top: 0;
-}
+.big-heart::before { top: -70px; left: 0; }
+.big-heart::after { left: 70px; top: 0; }
 
 @keyframes pulse {
     0% { transform: rotate(-45deg) scale(1); }
@@ -143,11 +149,11 @@ img {
 /* ===== Name Reveal ===== */
 .heart-name {
     position: absolute;
-    top: 50px;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg) scale(0.6);
     color: white;
-    font-size: 30px;
+    font-size: clamp(20px, 6vw, 30px);
     opacity: 0;
     transition: all 0.8s ease;
     pointer-events: none;
@@ -160,8 +166,6 @@ img {
     transform: translateX(-50%) scale(1);
 }
 
-
-
 /* ===== Buttons ===== */
 button {
     padding: 14px 34px;
@@ -173,15 +177,18 @@ button {
     transition: transform 0.3s ease;
 }
 
-#yesBtn {
-    background: #ff3366;
-    color: white;
+#yesBtn { background: #ff3366; color: white; }
+#noBtn { background: #eee; position: relative; }
+
+/* ===== Mobile Adjustments ===== */
+@media (max-width: 500px) {
+    .grid { grid-template-columns: repeat(4, 1fr); }
+    h1 { font-size: 24px; }
+    h2 { font-size: 20px; }
+    p { font-size: 16px; }
+    button { font-size: 16px; padding: 10px 20px; }
 }
 
-#noBtn {
-    background: #eee;
-    position: relative;
-}
 </style>
 </head>
 
@@ -190,26 +197,19 @@ button {
 <!-- GAME -->
 <div class="section active" id="game">
     <h2>My heart is locked 💗</h2>
-    <p>
-        Somewhere here are the keys to it…  
-        Can you help me find them? 🔑
-    </p>
+    <p>Somewhere here are the keys to it… Can you help me find them? 🔑</p>
     <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHBhOTZuaGplNmhxZ3IzeDZyYThqOHZyNXYyaGlqNmZraTY1cW92NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUOwFZmWUC2QDHKu4M/giphy.webp">
     <div class="grid" id="grid"></div>
 </div>
 
-<!-- ENVELOPE -->
+<!-- HEART SECTION -->
 <div class="section" id="envelopeSection">
     <h2>Yayy!! You found the keys to my heart 💖</h2>
-    <p>
-        Now let’s unlock it  
-        and see what’s been inside all along…
-    </p>
+    <p>Now let’s unlock it and see what’s been inside all along…</p>
+
     <div class="heart-container" id="heart">
         <div class="big-heart"></div>
-
-        <!-- ✨ CHANGE NAME HERE ✨ -->
-        <div class="heart-name" id="herName">Foru ❤️</div>
+        <div class="heart-name" id="herName">Name ❤️</div>
     </div>
 </div>
 
@@ -226,31 +226,28 @@ button {
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmo0NHViMXRubm11aGNzMHF4MDJzNjRkbDNidzZvZ2dwN2d3emgwcSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/SYo1DFS8NLhhqzzjMU/200.webp">
     <h2>Happy Valentine’s Day ❤️</h2>
     <p>
-        Thank you for unlocking my heart  
-        and choosing to stay there.  
+        Thank you for unlocking my heart and choosing to stay there.
         <br><br>
-        You make love feel warm, gentle,  
-        and wonderfully real. 💕
+        You make love feel warm, gentle, and wonderfully real. 💕
     </p>
     <h2>I Love You ❤️</h2>
 </div>
 
 <script>
-/* ===== Floating Hearts ===== */
+
+/* Floating Hearts */
 for (let i = 0; i < 50; i++) {
     let h = document.createElement("div");
     h.className = "heart";
-    h.innerHTML = i%2==0 ? "S️F" : "❤️";
+    h.innerHTML = i%2==0 ? "❤️" : "💖";
     let side = Math.random() < 0.5;
-    h.style.left = side
-        ? Math.random() * 25 + "vw"
-        : 75 + Math.random() * 25 + "vw";
-    h.style.fontSize = 10 + Math.random() * 22 + "px";
-    h.style.animationDuration = 6 + Math.random() * 6 + "s";
+    h.style.left = side ? Math.random()*25+"vw" : 75+Math.random()*25+"vw";
+    h.style.fontSize = 10 + Math.random()*22 + "px";
+    h.style.animationDuration = 6 + Math.random()*6 + "s";
     document.body.appendChild(h);
 }
 
-/* ===== Game Logic ===== */
+/* Game Logic */
 const icons = ["🧸","🍬","🎁","💌","🍫","🌹","🧁","🎀","📦","💝"];
 let keySpots = [];
 let found = 0;
@@ -262,23 +259,23 @@ function startGame() {
     keySpots = [];
 
     while (keySpots.length < 3) {
-        let r = Math.floor(Math.random() * 10);
+        let r = Math.floor(Math.random()*10);
         if (!keySpots.includes(r)) keySpots.push(r);
     }
 
-    icons.forEach((icon, i) => {
-        let d = document.createElement("div");
-        d.className = "item";
-        d.innerHTML = icon;
-        d.onclick = () => {
-            if (keySpots.includes(i)) {
-                d.innerHTML = "🔑";
+    icons.forEach((icon,i)=>{
+        let d=document.createElement("div");
+        d.className="item";
+        d.innerHTML=icon;
+        d.onclick=()=>{
+            if(keySpots.includes(i)){
+                d.innerHTML="🔑";
                 found++;
-                d.style.pointerEvents = "none";
-                if (found === 3) switchSection("game", "envelopeSection");
+                d.style.pointerEvents="none";
+                if(found===1) switchSection("game","envelopeSection");
             } else {
-                d.style.opacity = "0.3";
-                d.style.pointerEvents = "none";
+                d.style.opacity="0.3";
+                d.style.pointerEvents="none";
             }
         };
         grid.appendChild(d);
@@ -286,43 +283,32 @@ function startGame() {
 }
 startGame();
 
-/* ===== Transitions ===== */
-function switchSection(from, to) {
+function switchSection(from,to){
     document.getElementById(from).classList.remove("active");
-    setTimeout(() => {
-        document.getElementById(to).classList.add("active");
-    }, 500);
+    setTimeout(()=>document.getElementById(to).classList.add("active"),500);
 }
 
-/* ===== Envelope + Name Animation ===== */
-document.getElementById("heart").onclick = () => {
-    const heart = document.getElementById("heart");
-    heart.classList.add("open");
-
-    setTimeout(() => {
-        switchSection("envelopeSection", "question");
-    }, 4000);
+document.getElementById("heart").onclick=()=>{
+    document.getElementById("heart").classList.add("open");
+    setTimeout(()=>switchSection("envelopeSection","question"),3000);
 };
 
+let yesScale=1;
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
 
-/* ===== No Button + Yes Growth ===== */
-let yesScale = 1;
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-
-noBtn.onmouseover = e => {
-    e.target.style.left = Math.random() * 200 - 100 + "px";
-    e.target.style.top = Math.random() * 200 - 100 + "px";
-    yesScale += 0.08;
-    yesBtn.style.transform = `scale(${yesScale})`;
+noBtn.onmouseover=e=>{
+    const maxX=window.innerWidth/4;
+    const maxY=window.innerHeight/4;
+    e.target.style.position="relative";
+    e.target.style.left=(Math.random()*maxX-maxX/2)+"px";
+    e.target.style.top=(Math.random()*maxY-maxY/2)+"px";
+    yesScale+=0.08;
+    yesBtn.style.transform=`scale(${yesScale})`;
 };
 
-/* ===== Yes ===== */
-yesBtn.onclick = () => {
-    switchSection("question", "final");
-};
+yesBtn.onclick=()=>switchSection("question","final");
+
 </script>
-
 </body>
 </html>
-
