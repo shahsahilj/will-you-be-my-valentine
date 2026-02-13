@@ -2,12 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>My Heart ❤️</title>
 
+<!-- App Feel -->
+<meta name="theme-color" content="#ff3366">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Heart ❤️">
+
+<!-- Social Preview (CHANGE IMAGE URL) -->
+<meta property="og:title" content="A little surprise for you ❤️">
+<meta property="og:description" content="Tap to unlock my heart 💖">
+<meta property="og:image" content="https://truelovewords.com/wp-content/uploads/2015/12/I-Love-you-me-and-you.jpg">
+<meta property="og:type" content="website">
+
 <!-- Handwritten Font -->
-<link 
-href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" 
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -15,14 +27,18 @@ rel="stylesheet">
     font-family: 'Pacifico', cursive;
 }
 
+html, body {
+    -webkit-tap-highlight-color: transparent;
+}
+
 body {
     margin: 0;
-    height: 100vh;
     background: linear-gradient(135deg, #ffb6c1, #fff0f5);
-    overflow: hidden;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100dvh;
 }
 
 /* ===== Floating Hearts ===== */
@@ -50,7 +66,7 @@ body {
     width: 90%;
     opacity: 0;
     transform: scale(0.9);
-    transition: all 0.6s ease;
+    transition: all 0.6s cubic-bezier(.22,1,.36,1);
     pointer-events: none;
 }
 
@@ -143,11 +159,11 @@ img {
 /* ===== Name Reveal ===== */
 .heart-name {
     position: absolute;
-    top: 50px;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg) scale(0.6);
     color: white;
-    font-size: 30px;
+    font-size: clamp(20px, 6vw, 30px);
     opacity: 0;
     transition: all 0.8s ease;
     pointer-events: none;
@@ -182,6 +198,16 @@ button {
     background: #eee;
     position: relative;
 }
+
+/* ===== Mobile Adjustments ===== */
+@media (max-width: 500px) {
+    .grid { grid-template-columns: repeat(4, 1fr); }
+    h1 { font-size: 24px; }
+    h2 { font-size: 20px; }
+    p { font-size: 16px; }
+    button { font-size: 16px; padding: 10px 20px; }
+}
+
 </style>
 </head>
 
@@ -191,24 +217,23 @@ button {
 <div class="section active" id="game">
     <h2>My heart is locked 💗</h2>
     <p>
-        Somewhere here are the keys to it…  
+        Somewhere here are the keys to it…
         Can you help me find them? 🔑
     </p>
     <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHBhOTZuaGplNmhxZ3IzeDZyYThqOHZyNXYyaGlqNmZraTY1cW92NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUOwFZmWUC2QDHKu4M/giphy.webp">
     <div class="grid" id="grid"></div>
 </div>
 
-<!-- ENVELOPE -->
+<!-- HEART SECTION -->
 <div class="section" id="envelopeSection">
     <h2>Yayy!! You found the keys to my heart 💖</h2>
     <p>
-        Now let’s unlock it  
+        Now let’s unlock it
         and see what’s been inside all along…
     </p>
+
     <div class="heart-container" id="heart">
         <div class="big-heart"></div>
-
-        <!-- ✨ CHANGE NAME HERE ✨ -->
         <div class="heart-name" id="herName">Foru ❤️</div>
     </div>
 </div>
@@ -226,16 +251,17 @@ button {
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmo0NHViMXRubm11aGNzMHF4MDJzNjRkbDNidzZvZ2dwN2d3emgwcSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/SYo1DFS8NLhhqzzjMU/200.webp">
     <h2>Happy Valentine’s Day ❤️</h2>
     <p>
-        Thank you for unlocking my heart  
-        and choosing to stay there.  
+        Thank you for unlocking my heart
+        and choosing to stay there.
         <br><br>
-        You make love feel warm, gentle,  
+        You make love feel warm, gentle,
         and wonderfully real. 💕
     </p>
     <h2>I Love You ❤️</h2>
 </div>
 
 <script>
+
 /* ===== Floating Hearts ===== */
 for (let i = 0; i < 50; i++) {
     let h = document.createElement("div");
@@ -304,15 +330,17 @@ document.getElementById("heart").onclick = () => {
     }, 4000);
 };
 
-
 /* ===== No Button + Yes Growth ===== */
 let yesScale = 1;
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
 noBtn.onmouseover = e => {
-    e.target.style.left = Math.random() * 200 - 100 + "px";
-    e.target.style.top = Math.random() * 200 - 100 + "px";
+    const maxX = window.innerWidth/4;
+    const maxY = window.innerHeight/4;
+    e.target.style.position = "relative";
+    e.target.style.left = (Math.random()*maxX-maxX/2)+"px";
+    e.target.style.top = (Math.random()*maxY-maxY/2)+"px";
     yesScale += 0.08;
     yesBtn.style.transform = `scale(${yesScale})`;
 };
@@ -325,4 +353,3 @@ yesBtn.onclick = () => {
 
 </body>
 </html>
-
